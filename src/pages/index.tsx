@@ -7,9 +7,11 @@ import { SignInButton } from "@clerk/nextjs";
 import { SignOutButton } from "@clerk/clerk-react";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   const user = useUser();
+
+  const { data } = api.example.getAll.useQuery();
+
+
 
   return (
     <>
