@@ -12,8 +12,7 @@ const ProfileFeed = (props: { userId: string }) => {
 
   if (isLoading) return <LoadingPage />;
 
-  if (!data || data.length === 0) return
-  <div>User has not posted</div>;
+  if (!data || data.length === 0) return <div>User has not posted</div>;
 
   return (
     <div className="flex flex-col">
