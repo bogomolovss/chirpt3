@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
+import Image from "next/image";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data } = api.profile.getUserByUsername.useQuery({
@@ -16,9 +17,23 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>{data.username}</title>
       </Head>
 
-      <main className="flex h-screen justify-center">
-        <div>{data.username}</div>
-      </main>
+      <PageLayout>
+        <div className="h-24 border-slate-400
+          bg-slate-600 relative">
+          <Image src={data.profilePicture}
+            alt={`${data.username ?? ""} profile picture`}
+            width={128}
+            height={128}
+            className="absolute rounded-full bottom-0 left-0
+            -mb-[64px] ml-4 border-2 border-black bg-black"
+          />
+        </div>
+        <div className="h-[64px]"></div>
+        <div className="p-4 text-2xl font-bold">
+          {`@${data.username ?? ""}`}
+        </div>
+        <div className="border-b border-slate-400 w-full"></div>
+      </PageLayout>
     </>
   );
 };
@@ -27,6 +42,7 @@ import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import superjson from "superjson";
 import { createServerSideHelpers } from "@trpc/react-query/server";
+import { PageLayout } from "~/components/layout";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createServerSideHelpers({
