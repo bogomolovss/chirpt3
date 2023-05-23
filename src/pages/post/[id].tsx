@@ -3,13 +3,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 
-const Home: NextPage = () => {
-  const { isLoaded: userLoaded, isSignedIn } = useUser();
-
-  api.posts.getAll.useQuery();
-
-  if (!userLoaded) return <div />;
-
+const SinglePostPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -25,4 +19,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default SinglePostPage;
